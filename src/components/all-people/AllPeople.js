@@ -1,6 +1,16 @@
 import React, {Component} from 'react';
 import {PeopleService} from "../../services/PeopleService";
 import OneHuman from "../one-human/OneHuman";
+import './AllPeople.css';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  withRouter
+} from "react-router-dom";
+import FullInfoHuman from "../one-human/FullInfoHuman";
+
 
 class AllPeople extends Component {
 
@@ -27,13 +37,20 @@ class AllPeople extends Component {
 
     render() {
         let {people: {results}} = this.state;
-        console.log(this.state.people)
+        let {match: {url}} = this.props;
         return (
             <div>
-                {/*{results.map(value => <OneHuman item={value} key={value.id}/>)} /!* без рендера всё в стейте отрабатывает*!/*/}
+                <hr/>
+                {results && results.map(value => <OneHuman item={value} key={value.id}/>)} {/* без рендера всё в стейте отрабатывает*/}
+                <hr className={'nest'}/>
+                    <Route path={url + '/:id'} render={(props) => {
+                        let {match: {params: {id}}} = props;
+                        return <FullInfoHuman id={id} key={id}/>
+                    }}/>
+                <hr className={'nest'}/>
             </div>
         );
     }
 }
 
-export default AllPeople;
+export default withRouter(AllPeople);
