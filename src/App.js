@@ -6,6 +6,8 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import AllPlanets from "./components/all-planets/AllPlanets";
+import AllStarships from "./components/all-starships/AllStarships";
 
 class App extends Component {
     render() {
@@ -23,8 +25,8 @@ class App extends Component {
                     </Link><br/>
                     <Switch>
                         <Route path={'/people'} render={() => <AllPeople/>}/>
-                        <Route path={'/planets'}/>
-                        <Route path={'/starships'}/>
+                        <Route path={'/planets'} render={() => <AllPlanets/>}/>
+                        <Route path={'/starships'} render={() => <AllStarships/>}/>
                     </Switch>
                 </div>
             </Router>

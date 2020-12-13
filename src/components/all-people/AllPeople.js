@@ -19,20 +19,10 @@ class AllPeople extends Component {
 
     async componentDidMount() {
         let people = await this.peopleService.getPeople();
-        // this.setState({people});
-        // let {people: {results}} = this.state;
-        // let humans = results.map(value => value.url.split('/'));
-        // console.log(humans)
-        // let oneHuman = results.map(value => value);
-        // console.log(oneHuman);
-        // let {results} = people;
-
-        for (let i = 0; i < people.results.length; i++) {
-            people.results[i].id = i+1;
+        for (let i = 0; i < people.results.length; i++) {   // нет своего айди - добавляем вручную
+            people.results[i].id = i + 1;  // можно через сплит в конце ризалтс.урлы - порядковый номер
         }
         this.setState({people});
-        console.log(this.state);
-
     }
 
     render() {
@@ -42,12 +32,12 @@ class AllPeople extends Component {
             <div>
                 <hr/>
                 {results && results.map(value => <OneHuman item={value} key={value.id}/>)} {/* без рендера всё в стейте отрабатывает*/}
-                <hr className={'nest'}/>
+                <hr className={'nest1'}/>
                     <Route path={url + '/:id'} render={(props) => {
                         let {match: {params: {id}}} = props;
                         return <FullInfoHuman id={id} key={id}/>
                     }}/>
-                <hr className={'nest'}/>
+                <hr className={'nest1'}/>
             </div>
         );
     }

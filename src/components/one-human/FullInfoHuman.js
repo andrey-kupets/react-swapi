@@ -12,7 +12,6 @@ class FullInfoHuman extends Component {
         let human = await this.peopleService.getHuman(id); //достаём хьюмана заново, поэтому у него снова нет своего айди
             human.id = id; // создаём и присваиваем
         this.setState({human})
-        console.log(this.state.human)
     }
 
     render() {
