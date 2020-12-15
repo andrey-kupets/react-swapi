@@ -3,21 +3,37 @@ import {StarshipsService} from "../../services/StarshipsService";
 
 class FullInfoStarship extends Component {
 
-    state = {starship: []};
+    state = {starship: [],error:false};
     starshipsService = new StarshipsService();
 
-    async componentDidMount() {
+    componentDidMount() {
         const {id} = this.props;
-        const starship = await this.starshipsService.getOneStarship(id)
-        starship.id = id;
-        this.setState({starship});
+        this.starshipsService.getOneStarship(id).then((value) => {
+            console.log('starship');
+            console.log(value)
+            const {error, message} = value;
+            if(error){
+                this.setState({error: message.detail});
+
+            }else{
+                message.id = id;
+                this.setState({starship: message});
+            }
+        })
+            .catch(err => {
+                console.log('------------------');
+                console.error(err)
+                console.log('------------------');
+            })
+
     }
 
     render() {
-        const {starship} = this.state;
+        const {starship,error} = this.state;
         return (
             <div>
-                {starship && <div>{starship.id} - {starship.name} - length: {starship.length}m - class: {starship.starship_class}</div>}
+
+                {error || starship && <div>{starship.id} - {starship.name} - length: {starship.length}m - class: {starship.starship_class}</div>}
             </div>
         );
     }
