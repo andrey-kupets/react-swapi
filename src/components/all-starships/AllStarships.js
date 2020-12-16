@@ -19,7 +19,8 @@ class AllStarships extends Component {
     async componentDidMount() {
         const starships = await this.starshipsService.getStarships();
         for (let i = 0; i < starships.results.length; i++) {
-            starships.results[i].id = i + 1;
+            console.log(((starships.results[i].url).split("/").reverse())[1]);
+            starships.results[i].id =(((starships.results[i].url).split("/").reverse())[1] );
         }
         this.setState({starships});
     }
